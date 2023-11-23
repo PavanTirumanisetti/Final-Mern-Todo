@@ -17,7 +17,7 @@ function TodoList() {
 
   const fetchData = () => {
     axios
-      .get("http://localhost:4000/todoRoute")
+      .get("https://todobackend-zbvg.onrender.com/todoRoute")
       .then((res) => {
         if (res.status === 200) {
           setArr(res.data);
@@ -46,7 +46,7 @@ function TodoList() {
   const handleDeleteTodo = async () => {
     try {
       await axios.delete(
-        `http://localhost:4000/todoRoute/delete-todo/${selectedTodo}`
+        `https://todobackend-zbvg.onrender.com/todoRoute/delete-todo/${selectedTodo}`
       );
 
       // Remove the deleted todo from the state

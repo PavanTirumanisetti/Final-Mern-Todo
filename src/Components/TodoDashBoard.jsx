@@ -46,10 +46,9 @@ const TodoDashboard = () => {
         </div>
       </nav>
       <div className="container mt-3">
-        
-        <h1 style={{textAlign:'center',marginTop:'40px'}}>Welcome to the Todo Dashboard</h1>
-        
-      </div>
+  <h1 className="marquee-text">Welcome to the Todo Dashboard</h1>
+</div>
+
     </div>
   );
 };

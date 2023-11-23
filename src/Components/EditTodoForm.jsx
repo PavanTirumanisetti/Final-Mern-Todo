@@ -11,7 +11,7 @@ const EditTodoForm = ({ todoId, onClose, onUpdate }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/todoRoute/update-todo/${todoId}`)
+      .get(`https://todobackend-zbvg.onrender.com/todoRoute/update-todo/${todoId}`)
       .then((res) => {
         if (res.status === 200) {
           setFormData(res.data);
@@ -31,7 +31,7 @@ const EditTodoForm = ({ todoId, onClose, onUpdate }) => {
 
   const handleSubmit = () => {
     axios
-      .put(`http://localhost:4000/todoRoute/update-todo/${todoId}`, formData)
+      .put(`https://todobackend-zbvg.onrender.com/todoRoute/update-todo/${todoId}`, formData)
       .then((res) => {
         if (res.status === 200) {
           

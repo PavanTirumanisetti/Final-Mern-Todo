@@ -19,7 +19,7 @@ const ForgotPassword = () => {
     try {
       // Send request to update password
       const response = await Axios.put(
-        "http://localhost:4000/userRoute/update-password",
+        "https://todobackend-zbvg.onrender.com/userRoute/update-password",
         {
           email,
           newPassword,

@@ -13,7 +13,7 @@ function EditTodo() {
 
   const fetchData = () => {
     axios
-      .get("http://localhost:4000/todoRoute")
+      .get("https://todobackend-zbvg.onrender.com/todoRoute")
       .then((res) => {
         if (res.status === 200) {
           setArr(res.data);
@@ -26,7 +26,7 @@ function EditTodo() {
 
   const handleDeleteTodo = (todoId) => {
     axios
-      .delete(`http://localhost:4000/todoRoute/delete-todo/${todoId}`)
+      .delete(`https://todobackend-zbvg.onrender.com/todoRoute/delete-todo/${todoId}`)
       .then((res) => {
         if (res.status === 200) {
           alert("Todo deleted successfully!");
