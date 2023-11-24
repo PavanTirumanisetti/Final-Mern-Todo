@@ -1,32 +1,55 @@
 import React, { useState } from "react";
 import Axios from "axios";
-import DesktopNotification from "./DesktopNotification"; 
 
 const TodoAddForm = () => {
   const [TodoName, setTodoName] = useState("");
   const [Description, setDescription] = useState("");
+  const [TaskDate, setTaskDate] = useState("");
+  const [TaskTime, setTaskTime] = useState("");
 
   const handleAddTodo = async (event) => {
     event.preventDefault();
 
     try {
+      const combinedDateTime = new Date(`${TaskDate}T${TaskTime}`);
       const response = await Axios.post("https://todobackend-zbvg.onrender.com/todoRoute/create-todo", {
         TodoName,
         Description,
+        TaskDate: combinedDateTime,
+        TaskTime: TaskTime,  // Include TaskTime in the request
       });
 
       if (response.status === 200) {
-        // Display the web notification
-        DesktopNotification.showNotification();
-
         alert("Todo added successfully!");
+
+        // Schedule a notification for the specified time
+        scheduleNotification("Task Reminder", { body: `Don't forget to complete your task!` }, combinedDateTime);
+
         setTodoName("");
         setDescription("");
+        setTaskDate("");
+        setTaskTime("");
       } else {
         Promise.reject();
       }
     } catch (error) {
       console.error("Error adding todo: ", error);
+    }
+  };
+
+  const scheduleNotification = (title, options, date) => {
+    if (!Notification || Notification.permission !== 'granted') {
+      console.error('Notifications not supported or permission not granted.');
+      return;
+    }
+
+    const now = new Date();
+    const timeUntilNotification = date - now;
+
+    if (timeUntilNotification > 0) {
+      setTimeout(() => {
+        new Notification(title, options);
+      }, timeUntilNotification);
     }
   };
 
@@ -53,6 +76,24 @@ const TodoAddForm = () => {
             onChange={(e) => setDescription(e.target.value)}
             required
           ></textarea>
+        </div>
+        <div className="mb-3">
+          <input
+            type="date"
+            className="form-control"
+            value={TaskDate}
+            onChange={(e) => setTaskDate(e.target.value)}
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <input
+            type="time"
+            className="form-control"
+            value={TaskTime}
+            onChange={(e) => setTaskTime(e.target.value)}
+            required
+          />
         </div>
         <button type="submit" className="btn btn-primary w-100">
           Add Todo
